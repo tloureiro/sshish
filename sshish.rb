@@ -61,11 +61,15 @@ def collect_garbage_threads
 
 end
 
-@jid = Jabber::JID::new(USERNAME)
-@client = Jabber::Client.new(@jid)
-@client.connect
-@client.auth(PASSWORD)
-@client.send(Jabber::Presence.new.set_type(:available))
+def init_client
+	@jid = Jabber::JID::new(USERNAME)
+	@client = Jabber::Client.new(@jid)
+	@client.connect
+	@client.auth(PASSWORD)
+	@client.send(Jabber::Presence.new.set_type(:available))
+end
+
+init_client
 
 @client.add_message_callback do |message|
 
@@ -119,7 +123,6 @@ end
 
 $initial_threads = Thread.list
 
-
 loop do
 	sleep CHECK_INTERVAL
 	
@@ -128,9 +131,7 @@ loop do
 	kill_garbage_threads
 	
 	if !@client.is_connected?
-		@client.connect
-		@client.auth(PASSWORD)
-		@client.send(Jabber::Presence.new.set_type(:available))				
+		init_client
 		puts "conected again!"
 	end
 end
