@@ -129,6 +129,8 @@ loop do
 	
 	if !@client.is_connected?
 		@client.connect
+		@client.auth(PASSWORD)
+		@client.send(Jabber::Presence.new.set_type(:available))				
 		puts "conected again!"
 	end
 end
