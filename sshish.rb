@@ -101,7 +101,7 @@ class Sshish
 		loop do
 			sleep CHECK_INTERVAL
 			
-			print_all_threads
+			#~ print_all_threads
 			
 			if !@client.is_connected?
 				raise "lost connection!"
