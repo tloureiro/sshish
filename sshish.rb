@@ -131,7 +131,7 @@ Thread.abort_on_exception=true
 begin
 	s = Sshish.new
 	s.run
-rescue
+rescue Exception
 	puts "exception"
 	s.close
 	sleep 10
